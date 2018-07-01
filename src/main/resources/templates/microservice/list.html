@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="fragments/header :: header-css"/>
+	<title>Gerenciador de Apis</title>      
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />      
+</head>
+<body>
+	<div th:replace="fragments/header :: header"/>
+	<div class="container">
+		<div class="form-group">
+			<a class="btn btn-pq btn-success" href="form.html" th:href="@{/microservice/novo}">Novo</a>
+		</div>
+		
+		
+		<div class="alert alert-success" th:if="${globalMessage}"
+			th:text="${globalMessage}">mensagem</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Nome</td>
+					<td>Descrição</td>
+					<td>Dominio</td>
+					<td>Ambiente</td>
+					<td>Spring Vesion</td>
+					<td>Terminal</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${microservices.empty}">
+					<td colspan="3">Sem Microservices</td>
+				</tr>
+				<tr th:each="microservice : ${microservices}">
+					<td th:text="${microservice.id}">1</td>
+					
+					
+					
+					<td><a href="view.html"
+						th:text="${microservice.nome}"
+						th:href="@{'/microservice/' + ${microservice.id}}"
+						> nome </a></td>
+											
+						
+					<td th:text="${microservice.descricao}">1</td>
+					<td th:text="${microservice.dominio}">1</td>					
+					<td th:text="${microservice.ambiente}">1</td>
+					<td th:text="${microservice.springBootVesion}">1</td>
+					<td th:text="${microservice.terminal}">1</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

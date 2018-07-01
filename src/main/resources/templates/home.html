@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerenciador de Microservices</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <div th:replace="fragments/header :: header-css"/> 
+</head>
+
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+	<div class="container">
+		
+	 	
+ 	<form id="microserviceForm" th:action="@{/home/(form)}"
+			th:object="${homeDto}" action="#" method="post"
+			class="form-horizontal">
+		<div class="btn-group btn-group-justified">
+			<div class="radio-inline p-3 mb-2 bg-warning text-dark">					
+				<div>
+					<label class="control-label col-sm-2 text-xs-center">Ambiente:</label>
+				</div>
+				
+				<div class="radio-inline">
+					<label for="ambiente" class="col-sm-5">
+						<input type="radio" th:field="*{ambiente}" th:value="DEV" />
+						Desenvolvimento
+					</label> 
+					 
+					<label for="ambiente" class="col-sm-4">
+						<input type="radio" th:field="*{ambiente}" th:value="HOMOLOG" />
+						Homologação
+					</label>
+					 
+					<label for="ambiente" class="col-sm-3">
+						<input type="radio" th:field="*{ambiente}" th:value="PROD" />
+						Produção
+					</label>
+				</div>
+				<div><label></label> </div>
+			</div>
+
+			<div class="radio-inline bg-warning text-dark">	
+				
+				<div>
+					<label class="control-label col-sm-2 text-xs-center">Terminal:</label>
+				</div>
+					<div class="radio-inline">
+						<label class="col-sm-5"><input type="radio" th:field="*{terminal}" th:value="Rio" />Rio</label> 
+						 
+						<label class="col-sm-5"><input type="radio" th:field="*{terminal}" th:value="Santos" />Santos</label>
+						<label></label>							
+					</div>
+				<div><label></label> </div>
+			</div>				
+			<div class="radio-inline">		
+				<div>
+					<label class="control-label col-sm-2 text-xs-center"></label> 
+				</div>
+				<div class="row">
+				 <input	class="btn btn-pq btn-primary col-4" type="submit" value="Buscar" />
+				</div>
+				 <div><label></label> </div>
+			</div>				
+		</div>
+	</form>
+	<br/>
+		
+	<div class="alert alert-success" th:if="${globalMessage}"
+			th:text="${globalMessage}">mensagem</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>Microservice</td>
+					<td>url</td>
+					<td>Status</td>
+					<td>BD Microservice</td>
+					<td>BD N4</td>
+					<td>ActiveMQ</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${homeDto.listaStatus.empty}">
+					<td colspan="3">Sem microservices ativos</td>
+				</tr>
+				<tr th:each="st : ${homeDto.listaStatus}">
+					<td th:text="${st.nomeMs}">1</td>
+					<td th:text="${st.url}">1</td>
+					<td th:text="${st.status}">1</td>
+					
+					<td th:text="${st.db == null ? '' : st.db.dataSource.status}">1</td>
+				 	<td th:text="${st.db == null ? '' : st.db.n4DataSource.status}">1</td>
+				 	<td th:text="${st.jms == null ? '' : st.jms.status}">1</td>					
+			
+				</tr>
+			</tbody>
+		</table>	  
+</div>
+
+
+<div th:replace="fragments/footer :: footer"/>
+    
+</body>
+</html>

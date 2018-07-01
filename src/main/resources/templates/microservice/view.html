@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<div th:replace="fragments/header :: header-css"/>
+ 	<title>Gerenciador de Apis</title>      
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />      
+</head>
+<body>
+	<div th:replace="fragments/header :: header"/>
+	<div class="well">
+		
+	
+		<div class="alert alert-success" th:if="${globalMessage}"
+			th:text="${globalMessage}">Microservice gravado com sucesso</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th>Dominio</th>
+					<th>Ambiente</th> 					
+					<th>Spring Vesion</th>
+					<th>Terminal</th> 
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="id" th:text="${microservice.id}">1</td>
+					<td id="nome" th:text="${microservice.nome}"> nome </td>
+					<td id="descricao" th:text="${microservice.descricao}">1</td>
+					<td id="dominio" th:text="${microservice.dominio}">1</td>					
+					<td id="ambiente" th:text="${microservice.ambiente}">1</td>
+					<td id="springBootVesion" th:text="${microservice.springBootVesion}">1</td>					
+					<td id="terminal" th:text="${microservice.terminal}">1</td> 
+				</tr>
+			</tbody>			
+		</table>
+		
+		<div class="pull-left">
+			<a class="btn btn-pq btn-warning" th:href="@{/microservice/}" href="list.html">voltar</a>
+			<a class="btn btn-pq btn-success" href="form.html" th:href="@{'/microservice/alterar/' + ${microservice.id}}">alterar</a>
+			<a class="btn btn-pq btn-danger" href="microservice" th:href="@{'/microservice/remover/' + ${microservice.id}}">remover</a>
+		    
+		</div>
+		<br/>
+		<br/>
+	</div>
+	<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
